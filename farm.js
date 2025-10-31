@@ -56,7 +56,7 @@ const Farm = mongoose.model('Farm', farmSchema);
 //     },
 // ]);
 
-// memasukan data product ke farm berdasarkan filter "name"
+// memasukan data product ke farm berdasarkan filter 
 // const makeFarm = async () => {
 //     const farm = new Farm ({
 //         name : 'Farm',
@@ -70,12 +70,33 @@ const Farm = mongoose.model('Farm', farmSchema);
 // makeFarm();
 
 // function untuk tambah data product berdasarkan "id" dari si farm nya 
-const addProduct = async (id) => {
-    const farm = await Farm.findById(id)
-    const Kiwi = await Product.findOne({name : 'Kiwi'})
-    farm.products.push(Kiwi);
-    await farm.save();
-    console.log(farm);
-}
+// const addProduct = async (id) => {
+//     const farm = await Farm.findById(id)
+//     const Kiwi = await Product.findOne({name : 'Kiwi'})
+//     farm.products.push(Kiwi);
+//     await farm.save();
+//     console.log(farm);
+// }
             // id dari Farm nya 
-addProduct('69033507812a140f09ea014b');
+// addProduct('69033507812a140f09ea014b');
+
+// menampilkan data farm tapi detail product nya tidak tampil hanya id aja
+// Farm.findOne({name : 'Farm'}).then((farm) => {
+//     console.log(farm);
+// }).catch((err) => {
+//     console.log(err);
+// });
+
+
+// menampilkan data farm dengan detail product ada name, dan lainnya
+Farm.findOne({name : 'Farm'}).populate('products', 'name').then((farm) => {
+    console.log(farm);
+    // bisa dibuat perulangan
+    // for (const product of farm.products) {
+    //     console.log(product.name);
+    // }
+}).catch((err) => {
+    console.log(err);
+});
+
+
